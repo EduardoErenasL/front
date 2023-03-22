@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coppel</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./icons/css/coppel.css">
+  <link rel="stylesheet" href="./css/coppel.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./js/env.js?v=1.0"></script>
+  <script src="./js/coppel.js?v=1.0"></script>
+</head>
+<body>
+  <main>
+    <section class="titulo">
+        <h1>Pólizas</h1>
+    </section>
+
+    <section class="agregar">
+      <button id="agregarPoliza" type="button" class="btn btn-primary">
+        <span>Agregar póliza</span>
+      </button>
+    </section>
+
+    <section class="wrapper-tabla">
+      <div class="container-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Folio</th>
+              <th>Empleado</th>
+              <th>Articulo</th>
+              <th>Cantidad</th>
+              <th>Fecha</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody id="bodyTablePolizas">
+           
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL AGREGAR -->
+  <div id="modalAgregarPoliza" class="wrapper-modal">
+    <div class="mask"></div>
+    <div class="container-modal">
+      <div class="head-modal">
+        <h2 class="title-modal">Agregar póliza</h2>
+        <button id="cerrarAgregarPoliza" class="btn close-modal">
+          <i class="icon-cancel"></i>
+        </button>
+      </div>
+      <div class="body-modal">
+        <div class="form">
+          <div class="group-control empleado">
+            <label for="">Empleado</label>
+            <select id="empleadoAgregarPoliza" class="form-control">
+              <option value="-1" disabled selected>Cargando...</option>
+            </select>
+            <p class="msg"> mensaje de error</p>
+          </div>
+
+          <div class="group-control articulo">
+            <label for="">Articulo</label>
+            <select id="articuloAgregarPoliza" class="form-control">
+              <option value="-1" disabled selected>Cargando...</option>
+            </select>
+            <p class="msg"></p>
+          </div>
+
+          <div class="group-control cantidad">
+            <label for="">Cantidad</label>
+            <input id="cantidadAgregarPoliza" type="number" class="form-control" placeholder="Ingresar cantidad" />
+            <p class="msg"></p>
+          </div>
+        </div>
+
+        <div class="alerta">
+          <p class="msg">Mensaje de error de prueba</p>
+          <span class="cerrar-alerta">
+            <i class="icon-cancel"></i>
+          </span>
+        </div>
+        
+        <div class="acciones">
+          <button id="cancelarAgregarPoliza" type="button" class="btn btn-cancel">
+            <span>Cancelar</span>
+          </button>
+          <button id="aceptarAgregarPoliza" type="button" class="btn btn-primary">
+            <span>Aceptar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalAgregarPolizaConfirmacion" class="wrapper-modal">
+    <div class="mask"></div>
+    <div class="container-modal">
+      <div class="head-modal">
+        <h2 class="title-modal">Confirmación</h2>
+        <button id="cerrarAgregarPolizaConfirmacion" class="btn close-modal">
+          <i class="icon-cancel"></i>
+        </button>
+      </div>
+      <div class="body-modal">
+        <p class="msg-confirmacion">¿Está seguro que desea registrar la póliza?</p>
+
+        <div class="alerta">
+          <p class="msg"></p>
+          <span class="cerrar-alerta">
+            <i class="icon-cancel"></i>
+          </span>
+        </div>
+        
+        <div class="acciones">
+          <button id="cancelarAgregarPolizaConfirmacion" type="button" class="btn btn-cancel">
+            <span>Cancelar</span>
+          </button>
+          <button id="aceptarAgregarPolizaConfirmacion" type="button" class="btn btn-primary">
+            <span>Aceptar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR -->
+  <div id="modalEditarPoliza" class="wrapper-modal">
+    <div class="mask"></div>
+    <div class="container-modal">
+      <div class="head-modal">
+        <h2 class="title-modal">Editar póliza</h2>
+        <button id="cerrarEditarPoliza" class="btn close-modal">
+          <i class="icon-cancel"></i>
+        </button>
+      </div>
+      <div class="body-modal">
+        <div class="form">
+          <div class="group-control">
+            <label for="">Empleado</label>
+            <select id="empleadoEditarPoliza" class="form-control" disabled>
+              <option value="-1" disabled selected>Cargando...</option>
+            </select>
+            <p class="msg"> mensaje de error</p>
+          </div>
+
+          <div class="group-control">
+            <label for="">Articulo</label>
+            <select id="articuloEditarPoliza" class="form-control" disabled>
+              <option value="-1" disabled selected>Cargando...</option>
+            </select>
+            <p class="msg"></p>
+          </div>
+
+          <div class="group-control">
+            <label for="">Cantidad</label>
+            <input id="cantidadEditarPoliza" type="number" class="form-control" placeholder="Ingresar cantidad" />
+            <p class="msg"></p>
+          </div>
+        </div>
+
+        <div class="alerta">
+          <p class="msg">Mensaje de error de prueba</p>
+          <span class="cerrar-alerta">
+            <i class="icon-cancel"></i>
+          </span>
+        </div>
+        
+        <div class="acciones">
+          <button id="cancelarEditarPoliza" type="button" class="btn btn-cancel">
+            <span>Cancelar</span>
+          </button>
+          <button id="aceptarEditarPoliza" type="button" class="btn btn-primary">
+            <span>Aceptar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalEditarPolizaConfirmacion" class="wrapper-modal">
+    <div class="mask"></div>
+    <div class="container-modal">
+      <div class="head-modal">
+        <h2 class="title-modal">Confirmación</h2>
+        <button id="cerrarEditarPolizaConfirmacion" class="btn close-modal">
+          <i class="icon-cancel"></i>
+        </button>
+      </div>
+      <div class="body-modal">
+        <p class="msg-confirmacion">¿Está seguro que desea modificar la póliza?</p>
+
+        <div class="alerta">
+          <p class="msg"></p>
+          <span class="cerrar-alerta">
+            <i class="icon-cancel"></i>
+          </span>
+        </div>
+        
+        <div class="acciones">
+          <button id="cancelarEditarPolizaConfirmacion" type="button" class="btn btn-cancel">
+            <span>Cancelar</span>
+          </button>
+          <button id="aceptarEditarPolizaConfirmacion" type="button" class="btn btn-primary">
+            <span>Aceptar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELIMINAR -->
+  <div id="modalEliminarPolizaConfirmacion" class="wrapper-modal">
+    <div class="mask"></div>
+    <div class="container-modal">
+      <div class="head-modal">
+        <h2 class="title-modal">Confirmación</h2>
+        <button id="cerrarEliminarPolizaConfirmacion" class="btn close-modal">
+          <i class="icon-cancel"></i>
+        </button>
+      </div>
+      <div class="body-modal">
+        <p class="msg-confirmacion">¿Está seguro que desea eliminar la póliza?</p>
+
+        <div class="alerta">
+          <p class="msg">Mensaje de error de prueba</p>
+          <span class="cerrar-alerta">
+            <i class="icon-cancel"></i>
+          </span>
+        </div>
+        
+        <div class="acciones">
+          <button id="cancelarEliminarPolizaConfirmacion" type="button" class="btn btn-cancel">
+            <span>Cancelar</span>
+          </button>
+          <button id="aceptarEliminarPolizaConfirmacion" type="button" class="btn btn-primary">
+            <span>Aceptar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EXITO -->
+  <div id="modalExito" class="wrapper-modal">
+    <div class="mask"></div>
+    <div class="container-modal">
+      <div class="head-modal">
+        <h2 class="title-modal"></h2>
+        <button id="cerrarExito" class="btn close-modal">
+          <i class="icon-cancel"></i>
+        </button>
+      </div>
+      <div class="body-modal">
+        <div class="vector">
+          <i class="icon-ok"></i>
+        </div>
+        <p class="msg-exito"></p>        
+        <div class="acciones">
+          <button id="aceptarExito" type="button" class="btn btn-primary">
+            <span>Aceptar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOAD -->
+  <div id="loadGeneral" class="wrapper-load">
+    <div class="cssload-container-general">
+      <div class="cssload-internal">
+      <div class="cssload-ballcolor cssload-ball_1">&nbsp;</div>
+      </div>
+      <div class="cssload-internal">
+      <div class="cssload-ballcolor cssload-ball_2">&nbsp;</div>
+      </div>
+      <div class="cssload-internal">
+      <div class="cssload-ballcolor cssload-ball_3">&nbsp;</div>
+      </div>
+      <div class="cssload-internal">
+      <div class="cssload-ballcolor cssload-ball_4">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
