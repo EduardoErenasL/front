@@ -7,6 +7,7 @@
 html {
   font-size: 16px;
   color: #616161;
+  background-color: #FAFAFA;
 }
 body {
   padding: 15px;
@@ -15,10 +16,12 @@ body {
 .titulo {
   font-size: 28px;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .agregar {
   width: 300px;
+  margin-left: auto;
 }
 
 .btn {
@@ -79,7 +82,7 @@ body {
 }
 .container-table table thead tr {
   border-radius: 10px 10px 0px 0px;
-  background-color: #00387A;
+  background-color: #1c6dcb;
   text-align: center;
   color: #FFFFFF;
   height: 40px;
